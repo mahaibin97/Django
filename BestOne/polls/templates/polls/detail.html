@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BestOne Detail</title>
+    <h4>Question</h4>
+</head>
+<body>
+    <div>
+        <h1>{{ question.question_text }}</h1>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <img src="../static/polls/images/man.jpg" width="165" height="60" /><br/>
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br /><br/>
+        {% endfor %}
+        <input type="submit" value="投票" />
+        </form>
+    </div>
+
+    <div>
+        <a href="../">>>> Polls APP </a>
+    </div>
+
+</body>
+</html>
